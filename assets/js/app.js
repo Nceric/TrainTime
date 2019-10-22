@@ -12,10 +12,10 @@ function updateTrains() {
     
     document.getElementById("trainTimeTable").innerHTML = "";
     console.log("button works")
-    trainName = document.getElementById("trainName").value
-    destination = document.getElementById("destination").value
-    trainTimeOne = document.getElementById("trainTimeOne").value
-    frequencyMins = document.getElementById("frequency-mins").value
+    trainName = document.getElementById("trainName").value.trim()
+    destination = document.getElementById("destination").value.trim()
+    trainTimeOne = document.getElementById("trainTimeOne").value.trim()
+    frequencyMins = document.getElementById("frequency-mins").value.trim()
     array.push(trainName, destination, trainTimeOne, frequencyMins);
   };
 
@@ -33,7 +33,7 @@ document.querySelector("#submitButton").addEventListener("click", function () {
 
 }
 
-console.log(document.getElementById("submitButton"));
+document.getElementById("submitButton");
 console.log(trainInfo);
 
 localforage.getItem("saved").then(function (result) {
@@ -71,16 +71,16 @@ function displayTableResults() {
 
           const currentTime = moment().format('HH:mm');
           const firstTrainConverted = moment(result[i].trainTimeOne, "HH:mm").subtract(1, "day");
-          // Difference between the times
+          
           var dif = moment().diff(moment(firstTrainConverted), "minutes");
           console.log("diff: " +dif)
-          // Leftover minutes
+          
           var leftover = dif % result[i].frequencyMins;
           console.log("left over: "+leftover);
-          // Minutes away
+          
           var minsaway = result[i].frequencyMins - leftover;
           console.log("mins away: " +minsaway);
-          // Next Train
+          
           var nexttrain = moment().add(minsaway, "m").format("hh:mm A");
           console.log("next train: " +nexttrain);
 
